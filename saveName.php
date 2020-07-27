@@ -40,10 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //making success response 
         $response['error'] = false;
         $response['message'] = 'Saved successfully';
+        $stmt = $conn ->prepare("UPDATE names SET status = 'OK'");
     } else {
         //if not making failure response 
         $response['error'] = true;
         $response['message'] = $stmt->error;
+        $stmt = $conn ->prepare("UPDATE names SET status = '$stmt->error'");
     }
 } else {
     $response['error'] = true;
