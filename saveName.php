@@ -1,20 +1,20 @@
 <?php
 
 /*
-* Database Constants
-* Make sure you are putting the values according to your database here 
-*/
+ * Database Constants
+ * Make sure you are putting the values according to your database here 
+ */
 
-define('DB_HOST','localhost');
-define('DB_USERNAME','root');
-define('DB_PASSWORD','asd');
+define('DB_HOST', 'localhost');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', 'asd');
 define('DB_NAME', 'android');
 
 //Connecting to the database
 $conn = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 //checking the successful connection
-if($conn->connect_error) {
+if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
@@ -22,34 +22,32 @@ if($conn->connect_error) {
 $response = array();
 
 //if there is a post request move ahead 
-if($_SERVER['REQUEST_METHOD']=='POST'){
-	
-	//getting the name from request 
-	$barcode = $_POST['barcode']; 
-	$ldap_user = $_POST['ldap_user'];
-	$time = $_POST['time'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-	//creating a statement to insert to database 
-	$stmt = $conn->prepare("INSERT INTO names (barcode, ldap_user, time) VALUES ('$barcode','$ldap_user','$time')");
+    //getting the name from request 
+    $barcode = $_POST['barcode'];
+    $ldap_user = $_POST['ldap_user'];
+    $time = $_POST['time'];
 
-	//binding the parameter to statement 
-	$stmt->bind_param("ssi", $barcode,$ldap_user,$time);
+    //creating a statement to insert to database 
+    $stmt = $conn->prepare("INSERT INTO names (barcode, ldap_user, time) VALUES ('$barcode','$ldap_user','$time')");
 
-	//if data inserts successfully
-	if($stmt->execute()){
-		//making success response 
-		$response['error'] = false; 
-		$response['message'] = 'Saved successfully'; 
-	}else{
-		//if not making failure response 
-		$response['error'] = true; 
-		$response['message'] = 'Please try later';
-	}
+    //binding the parameter to statement 
+    $stmt->bind_param("ssi", $barcode, $ldap_user, $time);
 
-	
-}else{
-	$response['error'] = true; 
-	$response['message'] = "Invalid request"; 
+    //if data inserts successfully
+    if ($stmt->execute()) {
+        //making success response 
+        $response['error'] = false;
+        $response['message'] = 'Saved successfully';
+    } else {
+        //if not making failure response 
+        $response['error'] = true;
+        $response['message'] = $stmt->error;
+    }
+} else {
+    $response['error'] = true;
+    $response['message'] = "Invalid request";
 }
 
 //displaying the data in json format 
