@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $time = $_POST['time'];
 
     //creating a statement to insert to database 
-    $stmt = $conn->prepare("INSERT INTO names (barcode, ldap_user, time) VALUES ('$barcode','$ldap_user','$time')");
+    $stmt = $conn->prepare("INSERT INTO samples (barcode, ldap_user, time) VALUES ('$barcode','$ldap_user','$time')");
 
     //binding the parameter to statement 
     $stmt->bind_param("ssi", $barcode, $ldap_user, $time);
