@@ -40,20 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //making success response 
         $response['error'] = false;
         $response['message'] = 'Saved successfully';
-        $id = lastInsertId($conn);
-        $stmt2 = $conn->prepare("UPDATE names SET status = 'OK' WHERE id ='$id'");
-        //binding the parameter to statement 
-        $stmt2->bind_param("s", $status);
-        $stmt2->execute();
     } else {
         //if not making failure response 
         $response['error'] = true;
         $response['message'] = $stmt->error;
-        $id = lastInsertId($conn);
-        $stmt2 = $conn->prepare("UPDATE names SET status = '$stmt->error' WHERE id ='$id'");
-        //binding the parameter to statement 
-        $stmt2->bind_param("ssi", $status);
-        $stmt2->execute();
     }
 } else {
     $response['error'] = true;
