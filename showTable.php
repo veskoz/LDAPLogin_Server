@@ -27,7 +27,6 @@ if ($result->num_rows > 0) {
         echo "id: " . $row["id"] . 
                   " barcode: " . $row["barcode"] . 
                   " time: " . date("F j, Y, g:i a", $row["time"] / 1000) . 
-                  " status: " . $row["status"] .
                   " ldap_user: " . $row["ldap_user"] . 
                   "<br>";
     }
