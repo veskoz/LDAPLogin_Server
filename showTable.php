@@ -24,7 +24,12 @@ echo "SQL: " . $sql . "<br>";
 if ($result->num_rows > 0) {
     // output data of each row
     while ($row = $result->fetch_assoc()) {
-        echo "id: " . $row["id"] . " barcode: " . $row["barcode"] . " time: " . date("F j, Y, g:i a", $row["time"] / 1000) . " ldap_user: " . $row["ldap_user"] . "<br>";
+        echo "id: " . $row["id"] . 
+                  " barcode: " . $row["barcode"] . 
+                  " time: " . date("F j, Y, g:i a", $row["time"] / 1000) . 
+                  " status: " . $row["status"] .
+                  " ldap_user: " . $row["ldap_user"] . 
+                  "<br>";
     }
 } else {
     echo "0 results";
