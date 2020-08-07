@@ -7,7 +7,7 @@
 
 define('DB_HOST', 'localhost');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', 'asd');
+define('DB_PASSWORD', 'password');
 define('DB_NAME', 'android');
 
 //Connecting to the database
